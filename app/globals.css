@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f8fafc;
+  --foreground: #333333;
+  --dlu-green: #156536; /* Dark Green from DLU */
+  --dlu-green-hover: #104c28;
+  --dlu-gold: #f37a21; /* Orange/Gold from DLU */
+  --dlu-gold-hover: #d8681b;
+  --dlu-red: #cc0000;
+  --dlu-red-hover: #990000;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-dlu-green: var(--dlu-green);
+  --color-dlu-green-hover: var(--dlu-green-hover);
+  --color-dlu-gold: var(--dlu-gold);
+  --color-dlu-gold-hover: var(--dlu-gold-hover);
+  --color-dlu-red: var(--dlu-red);
+  --color-dlu-red-hover: var(--dlu-red-hover);
+  --font-sans: var(--font-roboto);
+  --font-heading: var(--font-roboto);
+  --font-mono: var(--font-jetbrains-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-roboto), Arial, Helvetica, sans-serif;
+}
+
+.font-heading {
+  font-family: var(--font-roboto), Arial, Helvetica, sans-serif;
+}
+
+.font-data {
+  font-family: var(--font-jetbrains-mono), monospace;
+}
+
+/* Academic style subtle background pattern */
+.bg-grid-pattern {
+  background-color: #f8fafc;
+  background-image:
+    linear-gradient(to right, rgba(21, 101, 54, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(21, 101, 54, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.page-enter {
+  animation: page-fade-slide 280ms ease-out;
+}
+
+@keyframes page-fade-slide {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
