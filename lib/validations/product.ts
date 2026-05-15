@@ -5,7 +5,6 @@ export const createProductSchema = z.object({
   description: z.string().min(10, "Mo ta toi thieu 10 ky tu"),
   price: z.coerce.number().int().nonnegative(),
   category_id: z.string().uuid("Category khong hop le"),
-  image_url: z.string().url("Anh khong hop le"),
 });
 
 export type CreateProductInput = z.infer<typeof createProductSchema>;

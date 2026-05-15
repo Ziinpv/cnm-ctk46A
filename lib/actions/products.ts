@@ -28,7 +28,6 @@ export async function createProductAction(
     description: formData.get("description"),
     price: formData.get("price"),
     category_id: formData.get("category_id"),
-    image_url: formData.get("image_url"),
   });
 
   if (!parsed.success) {
@@ -43,6 +42,30 @@ export async function createProductAction(
     return { error: "Ban can dang nhap" };
   }
 
+  // Handle file upload
+  const imageFile = formData.get("image") as File;
+  if (!imageFile || imageFile.size === 0) {
+    return { error: "Vui lòng chọn hình ảnh hợp lệ" };
+  }
+
+  const fileExt = imageFile.name.split('.').pop();
+  const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+  const filePath = `${user.id}/${fileName}`;
+
+  const { error: uploadError } = await supabase.storage
+    .from("product-images")
+    .upload(filePath, imageFile);
+
+  if (uploadError) {
+    return { error: "Lỗi khi upload ảnh: " + uploadError.message };
+  }
+
+  const { data: publicUrlData } = supabase.storage
+    .from("product-images")
+    .getPublicUrl(filePath);
+
+  const imageUrl = publicUrlData.publicUrl;
+
   const input = parsed.data;
   const slug = slugify(input.title);
 
@@ -52,7 +75,7 @@ export async function createProductAction(
     description: input.description,
     price: input.price,
     category_id: input.category_id,
-    images: [input.image_url],
+    images: [imageUrl],
     slug,
     status: "available",
   });

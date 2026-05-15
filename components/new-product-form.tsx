@@ -57,10 +57,10 @@ export function NewProductForm({ categories }: { categories: any[] }) {
         </select>
       </div>
       <div>
-        <label htmlFor="image_url" className="mb-1.5 block text-sm font-semibold text-gray-700">
-          URL hình ảnh (Storage public URL)
+        <label htmlFor="image" className="mb-1.5 block text-sm font-semibold text-gray-700">
+          Hình ảnh sản phẩm
         </label>
-        <Input id="image_url" name="image_url" type="url" required className="bg-white text-gray-900 border-gray-300" />
+        <Input id="image" name="image" type="file" accept="image/*" required className="bg-white text-gray-900 border-gray-300" />
       </div>
       <Button type="submit" disabled={pending} className="w-full bg-dlu-green hover:bg-dlu-green-hover text-white py-2.5 mt-2 rounded-md font-semibold text-base">
         {pending ? "Đang xử lý..." : "Đăng bài"}
