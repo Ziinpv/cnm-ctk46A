@@ -22,7 +22,7 @@ COPY . .
 # ENV NEXT_TELEMETRY_DISABLED=1
 
 # Cần copy file .env.example thành .env.production để Next.js build có các env public
-RUN cp .env.example .env.production || true
+RUN cp .env .env.production || cp .env.example .env.production || true
 RUN npm run build
 
 # Production image, copy all the files and run next

@@ -83,3 +83,6 @@ for delete using (auth.uid() = seller_id);
 create policy "Users can manage own wishlist" on public.wishlist
 for all using (auth.uid() = user_id)
 with check (auth.uid() = user_id);
+-- Note: Các cập nhật mới cho chat, orders, admin và RLS policies chi tiết
+-- được định nghĩa trong file `supabase/schema_update.sql`. 
+-- Hãy chạy toàn bộ nội dung trong `supabase/schema_update.sql` trên Supabase SQL Editor.

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 export function NewProductForm({ categories }: { categories: any[] }) {
-  const [state, formAction, pending] = useActionState(createProductAction, {});
+  const [state, formAction, pending] = useActionState(createProductAction as any, { error: "" });
 
   return (
     <form action={formAction} className="space-y-5">

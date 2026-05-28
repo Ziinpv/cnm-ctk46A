@@ -8,7 +8,7 @@ type ActionState = { error?: string };
 
 interface AuthFormProps {
   title: string;
-  action: (state: ActionState, formData: FormData) => Promise<ActionState | void>;
+  action: (state: any, formData: FormData) => Promise<any>;
   submitText: string;
 }
 
@@ -35,7 +35,7 @@ export function AuthForm({ title, action, submitText }: AuthFormProps) {
         </label>
         <Input id="password" name="password" type="password" required className="w-full" />
       </div>
-      {state.error ? <p className="text-sm font-medium text-dlu-red bg-dlu-red/10 p-2 rounded-md">{state.error}</p> : null}
+      {state?.error ? <p className="text-sm font-medium text-dlu-red bg-dlu-red/10 p-2 rounded-md">{state.error}</p> : null}
       
       <Button type="submit" disabled={pending} className="w-full bg-dlu-green hover:bg-dlu-green-hover text-white py-2.5 rounded-md mt-4">
         {pending ? "Đang xử lý..." : submitText}

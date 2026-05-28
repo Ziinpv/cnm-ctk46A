@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { updateProfileAction } from "@/lib/actions/profile";
 
 export default function ProfileForm({ profile }: { profile: any }) {
-  const [state, formAction, pending] = useActionState(updateProfileAction, {});
+  const [state, formAction, pending] = useActionState(updateProfileAction as any, { error: "", message: "" });
 
   return (
     <form action={formAction} className="space-y-5">
@@ -32,8 +32,8 @@ export default function ProfileForm({ profile }: { profile: any }) {
         />
       </div>
       
-      {state.error && <p className="text-sm font-medium text-dlu-red bg-dlu-red/10 p-2 rounded-md">{state.error}</p>}
-      {state.message && <p className="text-sm font-medium text-dlu-green bg-dlu-green/10 p-2 rounded-md">{state.message}</p>}
+      {state?.error && <p className="text-sm font-medium text-dlu-red bg-dlu-red/10 p-2 rounded-md">{state.error}</p>}
+      {state?.message && <p className="text-sm font-medium text-dlu-green bg-dlu-green/10 p-2 rounded-md">{state.message}</p>}
       
       <Button type="submit" disabled={pending} className="w-full bg-dlu-green hover:bg-dlu-green-hover text-white py-2.5 mt-2 rounded-md font-semibold text-base">
         {pending ? "Đang lưu..." : "Lưu thay đổi"}

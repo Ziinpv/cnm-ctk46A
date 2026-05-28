@@ -112,7 +112,11 @@ export default async function Home({ searchParams }: HomeProps) {
                   </CardTitle>
                 </Link>
                 <div className="mt-2 flex items-center text-xs text-gray-500 gap-2 mb-3">
-                  <span className="bg-gray-100 px-2 py-1 rounded-sm">{product.categories?.name ?? "Khác"}</span>
+                  <span className="bg-gray-100 px-2 py-1 rounded-sm">
+                    {(Array.isArray(product.categories)
+                      ? product.categories[0]?.name
+                      : (product.categories as any)?.name) ?? "Khác"}
+                  </span>
                   <span>•</span>
                   <span>Hôm nay</span>
                 </div>

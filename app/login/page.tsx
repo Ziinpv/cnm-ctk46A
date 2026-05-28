@@ -7,7 +7,13 @@ export default function LoginPage() {
     <main className="page-enter mx-auto flex min-h-[calc(100vh-64px)] w-full max-w-md items-center p-6">
       <div className="w-full rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
         <AuthForm title="Đăng nhập" action={loginAction} submitText="Đăng nhập" />
-        <form action={loginWithGithubAction} className="mt-4">
+        <form
+          action={async () => {
+            "use server";
+            await loginWithGithubAction();
+          }}
+          className="mt-4"
+        >
           <button
             type="submit"
             className="w-full rounded-md border border-gray-300 bg-white px-4 py-2.5 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-50 flex justify-center items-center gap-2"

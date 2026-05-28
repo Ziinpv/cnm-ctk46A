@@ -34,7 +34,7 @@ export default async function RootLayout({
     const { data: authData } = await supabase.auth.getUser();
     user = authData.user;
     if (user) {
-      const { data } = await supabase.from('profiles').select('display_name, avatar_url').eq('id', user.id).single();
+      const { data } = await supabase.from('profiles').select('display_name, avatar_url, role').eq('id', user.id).single();
       profile = data;
     }
   }
@@ -119,11 +119,22 @@ export default async function RootLayout({
                     </div>
                     <span className="hidden sm:inline-block">Xin chào, {profile?.display_name || 'Sinh viên'}</span>
                   </Link>
+                  {profile?.role === "admin" && (
+                    <Link className="text-sm font-bold text-dlu-red transition-colors hover:text-dlu-red-hover uppercase tracking-wider" href="/admin">
+                      Quản trị
+                    </Link>
+                  )}
+                  <Link className="text-sm font-medium text-gray-600 transition-colors hover:text-dlu-green" href="/dashboard/chat">
+                    Tin nhắn
+                  </Link>
+                  <Link className="text-sm font-medium text-gray-600 transition-colors hover:text-dlu-green" href="/dashboard/orders">
+                    Đơn hàng
+                  </Link>
                   <Link className="text-sm font-medium text-gray-600 transition-colors hover:text-dlu-green" href="/dashboard">
-                    Quản lý kho đồ
+                    Kho đồ
                   </Link>
                   <form action={signOutAction}>
-                    <button type="submit" className="text-sm font-medium text-dlu-red transition-colors hover:text-dlu-red-hover">
+                    <button type="submit" className="text-sm font-medium text-dlu-red transition-colors hover:text-dlu-red-hover cursor-pointer">
                       Đăng xuất
                     </button>
                   </form>

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { createClient } from "@/lib/supabase/server";
+import ProductRowActions from "@/components/product-row-actions";
 
 export default async function DashboardPage() {
   const supabase = await createClient();
@@ -27,18 +28,33 @@ export default async function DashboardPage() {
 
   return (
     <main className="page-enter mx-auto w-full max-w-5xl p-6 md:p-10">
-      <div className="mb-8 flex items-center justify-between border-b-2 border-dlu-green pb-2">
-        <h1 className="font-heading text-2xl font-bold text-dlu-green uppercase tracking-wide">Kho đồ của bạn</h1>
-        <div className="flex gap-3">
+      <div className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between border-b-2 border-dlu-green pb-3 gap-4">
+        <div>
+          <h1 className="font-heading text-2xl font-bold text-dlu-green uppercase tracking-wide">Kho đồ của bạn</h1>
+          <p className="text-xs text-gray-500 mt-1">Quản lý bài đăng bán và các hoạt động hội thoại, giao dịch của bạn.</p>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <Link
+            href="/dashboard/chat"
+            className="rounded bg-dlu-green/10 px-4 py-2.5 text-sm font-bold uppercase text-dlu-green transition-colors hover:bg-dlu-green/20 shadow-sm"
+          >
+            Tin nhắn
+          </Link>
+          <Link
+            href="/dashboard/orders"
+            className="rounded bg-amber-500/10 px-4 py-2.5 text-sm font-bold uppercase text-amber-700 transition-colors hover:bg-amber-500/20 shadow-sm"
+          >
+            Đơn hàng
+          </Link>
           <Link
             href="/dashboard/profile"
-            className="rounded bg-gray-100 px-5 py-2.5 text-sm font-bold uppercase text-gray-700 transition-colors hover:bg-gray-200 shadow-sm"
+            className="rounded bg-gray-100 px-4 py-2.5 text-sm font-bold uppercase text-gray-700 transition-colors hover:bg-gray-200 shadow-sm"
           >
             Sửa hồ sơ
           </Link>
           <Link
             href="/dashboard/new"
-            className="rounded bg-dlu-gold px-5 py-2.5 text-sm font-bold uppercase text-white transition-colors hover:bg-dlu-gold-hover shadow-sm"
+            className="rounded bg-dlu-gold px-4 py-2.5 text-sm font-bold uppercase text-white transition-colors hover:bg-dlu-gold-hover shadow-sm"
           >
             Đăng tin mới
           </Link>
@@ -66,7 +82,7 @@ export default async function DashboardPage() {
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {products?.map((product) => (
-            <Card key={product.id} className="overflow-hidden border-gray-200 shadow-sm transition-all hover:shadow-md rounded-none group flex flex-col h-full">
+            <Card key={product.id} className="overflow-hidden border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md rounded-none group flex flex-col h-full">
               <Link href={`/products/${product.id}`} className="block">
                 <div className="relative overflow-hidden bg-gray-100 aspect-[4/3] border-b border-gray-200">
                   <Image
@@ -88,9 +104,12 @@ export default async function DashboardPage() {
                     {product.status === 'sold' ? 'Đã bán' : 'Đang bán'}
                   </Badge>
                 </div>
-                <CardContent className="p-0 mt-auto pt-4 border-t border-gray-100">
+                <CardContent className="p-0 mt-auto pt-4 border-t border-gray-100 flex items-center justify-between">
                   <p className="font-data text-dlu-red font-bold text-lg">{product.price.toLocaleString()} đ</p>
                 </CardContent>
+                
+                {/* Thanh hành động Sửa / Xóa / Đánh dấu Đã bán dành cho chính người bán */}
+                <ProductRowActions productId={product.id} productStatus={product.status} />
               </div>
             </Card>
           ))}
